@@ -1,0 +1,56 @@
+<h2> {{ pageTitle }}</h2>
+<form [formGroup]="userForm" (submit)="submitForm()">
+    <div class="card-body">
+        <div class="form-row">
+
+            <div class="form-group">
+                <label for="name">Nome</label><br>
+                <input type="text" class="form-control" id="name" formControlName="name">
+                <div class="text-danger">
+                    <div *ngIf="userForm.get('name').invalid || userForm.get('name').touched">
+                        <div *ngIf="userForm.get('name').errors?.required">Campo obrigatório</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="name">Email</label><br>
+                <input type="email" class="form-control" id="email" formControlName="email">
+                <div class="text-danger">
+                    <div *ngIf="userForm.get('email').invalid || userForm.get('email').touched">
+                        <div *ngIf="userForm.get('email').errors?.required">Campo obrigatório</div>
+                        <div *ngIf="userForm.get('email').errors?.isValid">Insira um email válido</div>
+                    </div>
+                </div>
+            </div>
+  
+
+            <div class="form-group">
+                <label for="cpf">Cpf</label><br>
+                <input type="text" class="form-control" id="cpf" formControlName="cpf">
+                <div class="text-danger">
+                    <div *ngIf="userForm.get('cpf').invalid || userForm.get('cpf').touched">
+                        <div *ngIf="userForm.get('cpf').errors?.required">Campo obrigatório</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                    <label for="telephone">Telefone</label><br>
+                    <input type="text" class="form-control" id="telephone" formControlName="telephone">
+                    <div class="text-danger">
+                        <div *ngIf="userForm.get('telephone').invalid || userForm.get('telephone').touched">
+                            <div *ngIf="userForm.get('telephone').errors?.required">Campo obrigatório</div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+    <br>
+    <button [disabled]="formSubmitting || userForm.invalid" type="submit"
+        class="btn btn-primary float-left mt-3">Salvar</button>
+
+</form>

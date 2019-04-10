@@ -1,0 +1,45 @@
+table {
+  empty-cells: show;
+  border: 1px solid #cbcbcb;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+table th {
+  background: #cbcbcb;
+  padding: 0;
+}
+table th,
+table td {
+  padding: 0.5em 1em;
+}
+table tr,
+table td {
+  border-bottom: 1px solid #cbcbcb;
+}
+table td {
+  border-left: 1px solid #cbcbcb;
+  border-width: 0 0 0 1px;
+  font-size: inherit;
+  margin: 0;
+  overflow: visible;
+}
+.btn {
+  border: none;
+  padding: 9px;
+  border-radius: 5px;
+  margin: 5px;
+  color: white;
+  font-weight: 700;
+  transition: all 0.3s;
+}
+.btn:hover {
+  transition: all 0.3s;
+  transform: scale(1.09);
+}
+.bg-success {
+  background: green;
+}
+.bg-danger {
+  background: tomato;
+}
