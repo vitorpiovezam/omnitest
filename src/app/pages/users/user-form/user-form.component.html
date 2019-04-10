@@ -16,11 +16,11 @@
 
             <div class="form-group">
                 <label for="name">Email</label><br>
-                <input type="email" class="form-control" id="email" formControlName="email">
+                <input type="text" class="form-control" id="email" formControlName="email">
                 <div class="text-danger">
                     <div *ngIf="userForm.get('email').invalid || userForm.get('email').touched">
                         <div *ngIf="userForm.get('email').errors?.required">Campo obrigatório</div>
-                        <div *ngIf="userForm.get('email').errors?.isValid">Insira um email válido</div>
+                        <div *ngIf="userForm.get('email').errors?.email">Insira um email válido</div>
                     </div>
                 </div>
             </div>
