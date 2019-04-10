@@ -40,7 +40,7 @@ export class UserFormComponent implements OnInit, AfterContentChecked {
     this.submittingForm = true;
 
     if (this.currentAction === 'edit') {
-      this.updateUser();
+      this.updateUser(this.user[0]._id,this.user);
     } else if (this.currentAction === 'new') {
       this.createUser();
     }
@@ -48,7 +48,7 @@ export class UserFormComponent implements OnInit, AfterContentChecked {
 
   private setPageTitle() {
     if (this.currentAction === 'edit') {
-      this.pageTitle = 'Editar ' + this.user.name || ' ';
+      this.pageTitle = 'Editar Usuário';
     } else {
       this.pageTitle = 'Novo usuário';
     }
@@ -60,11 +60,10 @@ export class UserFormComponent implements OnInit, AfterContentChecked {
 
   private buildUserForm() {
     this.userForm = this.formBuilder.group({
-      id: [null],
-      name: [null, [Validators.required]],
-      email: [null, [Validators.required], [Validators.email]],
-      cpf: [null, [Validators.required]],
-      telephone: [null, [Validators.required]]
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      cpf: ['', [Validators.required]],
+      telephone: ['', [Validators.required]]
     });
   }
 
@@ -76,7 +75,7 @@ export class UserFormComponent implements OnInit, AfterContentChecked {
       .subscribe(
         (user) => {
           this.user = user;
-          this.userForm.patchValue(this.user);
+          this.userForm.patchValue(this.user[0]);
         },
         (error) => alert('Error')
       );
@@ -89,22 +88,31 @@ export class UserFormComponent implements OnInit, AfterContentChecked {
     const user: User = Object.assign(new User(), this.userForm.value);
     this.userService.create(user)
     .subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
       user => this.actionsForSuccess(user),
       error => this.actionsForError(error)
     );
   }
 
-  private updateUser() {
-
+  private updateUser(id:number, user: User) {
+    const user: User = Object.assign(new User(), this.userForm.value);
+    user._id = id;
+    this.userService.update(user)
+    .subscribe(
+      user => this.actionsForSuccess(user),
+      error => this.actionsForError(error)
+    );
   }
 
   private actionsForSuccess(user: User) {
-    const message = `O(a) usuario(a) ${user.name} foi cadastrado(a) com sucesso`;
+    const msgType = this.currentAction === 'new' ? 'cadastrado(a)' : 'editado(a)';
+
+    const message = `O(a) usuario(a) ${user.name} foi ${msgType} com sucesso`;
 
     alert(message);
     this.router.navigateByUrl('users', {skipLocationChange: true})
     .then(
-      () => this.router.navigate(['user', user._id, 'edit'])
+      () => this.router.navigate(['users'])
     );
   }
 

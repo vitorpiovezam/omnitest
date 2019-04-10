@@ -22,7 +22,7 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  deleteUser(user: any){
+  deleteUser(user: any) {
     const mustDelete = confirm('Deseja realmente deletar esse registro ?');
 
     if (mustDelete) {
