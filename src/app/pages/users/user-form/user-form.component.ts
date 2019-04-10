@@ -94,7 +94,7 @@ export class UserFormComponent implements OnInit, AfterContentChecked {
     );
   }
 
-  private updateUser(id:number, user: User) {
+  private updateUser(id: number) {
     const user: User = Object.assign(new User(), this.userForm.value);
     user._id = id;
     this.userService.update(user)
