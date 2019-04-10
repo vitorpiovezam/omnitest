@@ -40,7 +40,7 @@ export class UserFormComponent implements OnInit, AfterContentChecked {
     this.submittingForm = true;
 
     if (this.currentAction === 'edit') {
-      this.updateUser(this.user[0]._id,this.user);
+      this.updateUser(this.user[0]._id);
     } else if (this.currentAction === 'new') {
       this.createUser();
     }
@@ -69,8 +69,9 @@ export class UserFormComponent implements OnInit, AfterContentChecked {
 
   private loadUser() {
     if (this.currentAction === 'edit') {
+      let id = this.route.snapshot.params['id'];
       this.route.paramMap.pipe(
-        switchMap(params => this.userService.getById(params.get('id')))
+        switchMap(params => this.userService.getById(id))
       )
       .subscribe(
         (user) => {
@@ -88,7 +89,6 @@ export class UserFormComponent implements OnInit, AfterContentChecked {
     const user: User = Object.assign(new User(), this.userForm.value);
     this.userService.create(user)
     .subscribe(
-      // tslint:disable-next-line:no-shadowed-variable
       user => this.actionsForSuccess(user),
       error => this.actionsForError(error)
     );
